@@ -1,20 +1,23 @@
 import React from 'react';
 
-import {Text, View, StyleSheet} from 'react-native';
+import Container from '~/components/Container';
+import Header from '~/components/Header';
 import ForecastDetails from '~/components/ForecastDetails';
+import Api from '~/services/api';
 
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    flex: 1,
-    backgroundColor: '#cecece',
-  },
-});
+const teste = Api.get('?q=London,uk&appid=b6907d289e10d714a6e88b30761fae22')
+  .then(res => {
+    console.tron.log('weather', res.data);
+  })
+  .catch(error => {
+    console.tron.log('error: ', error);
+  });
 
 const Main = () => (
-  <View style={styles.container}>
+  <Container>
+    <Header title="Previsão do Tempo" />
     <ForecastDetails />
-  </View>
+  </Container>
 );
 
 export default Main;
