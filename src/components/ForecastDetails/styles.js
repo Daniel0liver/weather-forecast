@@ -41,7 +41,7 @@ export const Body = styled.View`
   justify-content: space-evenly;
 `;
 
-export const Wind = styled.View`
+export const WeatherInfo = styled.View`
   flex-direction: row;
 `;
 
@@ -57,16 +57,28 @@ export const Temperature = styled.Text`
   font-family: 'HelveticaNeue-Thin';
 `;
 
-export const WeatherInfo = styled.Text`
+export const Locality = styled.Text`
   color: ${theme.subtitle};
   font-size: 18px;
   font-weight: 300;
   font-family: 'HelveticaNeue-Thin';
 `;
 
-export const Umidity = styled.Text`
+export const MoreInfo = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const Content = styled(MoreInfo)`
+  padding: 0px 16px;
+`;
+
+export const Humidity = styled.Text`
   color: ${theme.subtitle};
   font-size: 18px;
   font-weight: 300;
+  padding-left: 5px;
   font-family: 'HelveticaNeue-Thin';
 `;
+
+export const Winds = styled(Humidity)``;
