@@ -1,23 +1,62 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import {ActivityIndicator} from 'react-native';
+import Feather from 'react-native-vector-icons/Feather';
 
 import Container from '~/components/Container';
 import Header from '~/components/Header';
 import ForecastDetails from '~/components/ForecastDetails';
+import Links from '~/components/Links';
+import {theme} from '~/styles/index';
 import Api from '~/services/api';
 
-const teste = Api.get('?q=London,uk&appid=b6907d289e10d714a6e88b30761fae22')
-  .then(res => {
-    console.tron.log('weather', res.data);
-  })
-  .catch(error => {
-    console.tron.log('error: ', error);
-  });
+export default function Main() {
+  const [hourForecast, setHourForecast] = useState(null);
+  const [curretForecast, setCurrentForecast] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-const Main = () => (
-  <Container>
-    <Header title="Previsão do Tempo" />
-    <ForecastDetails />
-  </Container>
-);
+  useEffect(() => {
+    Api.get(
+      'weather?id=3395473&units=metric&&appid=a53195231677331f8533d1b866e30828',
+    )
+      .then(res => {
+        setCurrentForecast(res.data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.tron.log('error: ', error);
+        setLoading(false);
+      });
+  }, []);
 
-export default Main;
+  useEffect(() => {
+    Api.get(
+      'forecast?id=3395473&units=metric&&appid=a53195231677331f8533d1b866e30828',
+    )
+      .then(res => {
+        setHourForecast(res.data);
+      })
+      .catch(error => {
+        console.tron.log('error: ', error);
+      });
+  }, []);
+
+  return (
+    <Container>
+      {loading ? (
+        <ActivityIndicator />
+      ) : (
+        <>
+          <Header
+            headerLeft={<Feather name="menu" size={23} color={theme.title} />}
+            title="Previsão do Tempo"
+          />
+          <ForecastDetails data={curretForecast} />
+          <Links />
+        </>
+      )}
+    </Container>
+  );
+}
+
+// Implementar loading
+// https://reactnativeexample.com/a-customizable-skeleton-like-loading-placeholder-for-react-native-projects/
