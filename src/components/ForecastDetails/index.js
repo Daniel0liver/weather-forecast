@@ -2,6 +2,7 @@ import React from 'react';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import {theme} from '~/styles/index';
 import Icon from '~/assets/icons/weatherIcon';
+import {formatDate, formatTemperature} from '~/utils/index';
 import {
   Card,
   Header,
@@ -20,7 +21,7 @@ import {
   Winds,
 } from './styles';
 
-export default function ForecastDetails() {
+export default function ForecastDetails({data}) {
   return (
     <Card>
       <Header>
@@ -29,26 +30,28 @@ export default function ForecastDetails() {
         </Icons>
         <Info>
           <DateTitle>Hoje</DateTitle>
-          <Date>Sáb, 05 Março</Date>
+          <Date>{formatDate()}</Date>
         </Info>
       </Header>
       <Body>
         <WeatherInfo>
-          <Temperature>28</Temperature>
+          <Temperature>{formatTemperature(data.main.temp)}</Temperature>
           <Scale>
             <Icon color={theme.title} size={45} name="wi-celsius" />
           </Scale>
         </WeatherInfo>
-        <Locality>Fortaleza - CE</Locality>
+        <Locality>
+          {data.name} - {data.sys.country}
+        </Locality>
         <MoreInfo>
           <Content>
             <Icon color={theme.cloudy} size={30} name="wi-humidity" />
-            <Humidity>87%</Humidity>
+            <Humidity>{data.main.humidity}%</Humidity>
           </Content>
           <Fontisto name="ellipse" size={5} color={theme.title} />
           <Content>
             <Icon color={theme.cloudy} size={30} name="wi-cloudy-windy" />
-            <Winds>30 km</Winds>
+            <Winds>{data.wind.speed} km</Winds>
           </Content>
         </MoreInfo>
       </Body>
