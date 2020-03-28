@@ -4,6 +4,7 @@ import Feather from 'react-native-vector-icons/Feather';
 
 import Container from '~/components/Container';
 import Header from '~/components/Header';
+import WeatherList from '~/components/WeatherList';
 import ForecastDetails from '~/components/ForecastDetails';
 import Links from '~/components/Links';
 import {theme} from '~/styles/index';
@@ -52,6 +53,7 @@ export default function Main() {
           />
           <ForecastDetails data={curretForecast} />
           <Links />
+          <WeatherList data={hourForecast} />
         </>
       )}
     </Container>
