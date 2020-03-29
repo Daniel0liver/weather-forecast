@@ -21,7 +21,6 @@ export default function Main() {
     )
       .then(res => {
         setCurrentForecast(res.data);
-        setLoading(false);
       })
       .catch(error => {
         console.tron.log('error: ', error);
@@ -35,11 +34,13 @@ export default function Main() {
     )
       .then(res => {
         setHourForecast(res.data);
+        setLoading(false);
       })
       .catch(error => {
         console.tron.log('error: ', error);
+        setLoading(false);
       });
-  }, []);
+  }, [curretForecast]);
 
   return (
     <Container>
